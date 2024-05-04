@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="el" th:xmlns="http://www.thymeleaf.org" th:replace="normal/normalBase::layout(~{::section})">
+    <head>
+        <title th:text="${title}"></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <section>
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 my-5 d-flex align-items-center justify-content-around">
+                        <div class="card col-md-5 bg-color">
+
+                            <div th:if="${session.msg}" class="container">
+
+                                <div th:classappend="${session.msg.type}" class="alert alert-dismissible fade show" role="alert">
+                                    <span th:text="${session.msg.message}"></span>      
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                </div>
+                                <th:block th:text="${@helper.removeSession()}"></th:block>
+
+                            </div>
+
+                            <div class="card-body">
+                                <h2 class="my-2">Change Password:</h2>
+
+                                <form th:action="@{changePass}" method="post">
+
+                                    <div class="form-group">
+                                        <input type='text' class="form-control mb-2" name="currentPass" placeholder="Enter Current Password" required/>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <input type='text' class="form-control mb-2" name="newPass" placeholder="Enter New Password" required/>
+
+                                    </div>
+
+                                    <div class="container text-center">
+
+                                        <button type="submit" class="btn btn-success btn-block">Submit</button>
+                                        <button type="reset" class="btn btn-warning btn-block">Reset</button>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+
+                        </div>
+
+                        <div id="login-row" class="col-md-5">
+
+                            <div class="card bg-color">
+
+                                <div th:if="${session.msg1}" class="container">
+
+                                    <div th:classappend="${session.msg1.type}" class="alert alert-dismissible fade show"
+                                         role="alert">
+
+                                        <span th:text="${session.msg1.message}"></span> 
+
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+
+                                    <!--Remove msg from Session-->
+                                    <th:block th:text="${@helper.removeSession()}"></th:block>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <h2 class="my-2">Change Email</h2>
+
+
+                                <form th:action="@{verify-email}" method="get" >
+
+                                    <div class="input-group mb-2">
+
+                                        <div class="input-group-prepend">
+
+                                            <div class="fs-4 input-group-text">
+
+                                                <i class="fa-solid fa-envelope"></i>
+                                            </div>
+
+                                        </div>
+
+                                        <input type="email" name="currentEmail" id="email" class="form-control"
+                                              th:value="${user.userName}" placeholder="enter login Email"  readonly>
+                                        
+                                    </div>
+
+
+                                    <div class="input-group mb-2">
+
+                                        <div class="input-group-prepend">
+
+                                            <div class="fs-4 input-group-text">
+
+                                                <i class="fa-solid fa-envelope"></i>
+                                            </div>
+
+                                        </div>
+
+                                        <input type="email" name="newEmail" id="email" class="form-control"
+                                               placeholder="enter new email"
+                                               >
+                                    </div>
+
+
+                                    <div class="conatiner text-center">
+                                        <button type="submit" class="btn btn-warning btn-block">Verify</button>
+                                    </div>
+
+                                </form>
+
+
+                            </div>
+                            </div>
+                        </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <script>
+
+                    $(document).ready(() => {
+
+                        $(".dash-list").removeClass("sidebar-active");
+                        $("#setting").addClass("sidebar-active");
+                    });
+                </script>
+
+        </section>
+
+    </body>
+</html>

@@ -1,0 +1,189 @@
+html{
+    overflow-x: hidden;
+}
+body{
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.brand{
+    color : orangered;
+    font-style: oblique;
+
+}
+
+.signup-btn{
+    display: none;
+}
+
+.otp-group{
+    display: none;
+}
+
+.m-all{
+    margin-top: 75px;
+}
+
+.bg-color{
+    background-color: #e2e2e2 !important;
+}
+
+.sidebar{
+    width: 18%;
+    height: 100%;
+    position: fixed;
+    padding-top: 25px;
+    background-color: #e2e2e2;
+}
+
+
+.sidebar a{
+
+    display: block;
+    width: 100%;
+    padding: 10px 25px;
+    text-decoration: none;
+    color: gray;
+    margin-top: 10px;
+
+}
+
+.dash-list:hover{
+    color: orange;
+    background-color: white;
+}
+
+.sidebar-active{
+    color: white;
+    background: black;
+}
+
+.sidebar-active:hover{
+       color: white;
+    background: black; 
+}
+
+.sidebar .devider{
+    height: .5px;
+    background-color: white;
+    margin-top: 10px;
+}
+
+.content{
+    margin-left: 22%;
+}
+
+.sidebar .cross-menu-bar{
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: 36px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.menu-bar{
+    font-size: 2rem;
+    display: none;
+}
+
+.card img{
+    border-radius: 50%;
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.address-form , .profile-form{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.inImg{
+    height: 200px;
+
+}
+
+.mid-nav {
+    background-color: #f8f9fa;
+}
+
+.mid-nav .nav-link {
+    color: #000;
+}
+
+.mid-nav .nav-link.active {
+    font-weight: bold;
+    background: cyan;
+    color: white;
+    border-radius: 4px;
+}
+
+.s-table{
+    width: 50%;
+}
+
+@media only screen and (max-width : 910px){
+
+    .sidebar{
+        
+        width: 28% !important;
+    }
+
+    .content{
+        margin-left: 30%!important;
+
+    }
+
+    .dash-img{
+        flex-direction: column;
+    }
+}
+
+
+
+
+@media only screen and (max-width : 600px){
+
+
+    .sidebar{
+        display: none;
+        width: 60% !important;
+        height: 100vh;
+        position: fixed;
+        background-color: #e2e2e2;
+        padding-top: 20px;
+    }
+
+    .content{
+        margin-left: 0%!important;
+    }
+
+    .sidebar .cross-menu-bar{
+        display: block;
+    }
+
+    .menu-bar{
+        display: block;
+    }
+
+    .p_img img{
+        width: 200px;
+    }
+}
+

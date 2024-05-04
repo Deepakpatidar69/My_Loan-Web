@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/normalBase::layout(~{::section})">
+    <head>
+        <title>Update Address</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <section>
+
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 mt-5 m-2">
+                        <div class="address-form">
+                            <h2 class="text-center mb-4">Update Address</h2>
+                            <form th:action="@{doUpAddress}" method="post" th:object="${address}">
+                                
+                                <input type="hidden" name="id" th:value="${address.id}"/>
+                                <!-- Street -->
+                                <div class="mb-3">
+                                    <label for="street" class="form-label">Street</label>
+                                    <input type="text" class="form-control" th:value="${address.street}"
+                                           name="street"id="street" placeholder="Enter street">
+                                </div>
+                                <!-- Landmark -->
+                                <div class="mb-3">
+                                    <label for="landmark" class="form-label">Landmark</label>
+                                    <input type="text" class="form-control" name="landmark"
+                                           th:value="${address.landmark}" id="landmark" placeholder="Enter landmark">
+                                </div>
+                                <!-- Pincode -->
+                                <div class="mb-3">
+                                    <label for="pincode" class="form-label">Pincode</label>
+                                    <input type="text" class="form-control" name="pincode"
+                                           th:value="${address.pincode}" id="pincode" placeholder="Enter pincode">
+                                </div>
+                                <!-- Flat No / Makan No -->
+                                <div class="mb-3">
+                                    <label for="flat" class="form-label">Flat No / Makan No</label>
+                                    <input type="text" class="form-control" id="flat" name="flatNo"
+                                           th:value="${address.flatNo}" placeholder="Enter flat/makan number">
+                                </div>
+                                <!-- City / Village -->
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">City / Village</label>
+                                    <input type="text" class="form-control" id="city" name="city"
+                                           th:value="${address.city}" placeholder="Enter city/village">
+                                </div>
+                                <!-- State -->
+                                <div class="mb-3">
+                                    <label for="state" class="form-label">State</label>
+                                    <input type="text" class="form-control" id="state"
+                                           name="state" th:value="${address.state}" placeholder="Enter state">
+                                </div>
+                                <!-- Submit Button -->
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-block btn-success">Update Address</button>
+                                    <button type="reset" class="btn btn-block btn-warning">Reset</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+    </body>
+</html>

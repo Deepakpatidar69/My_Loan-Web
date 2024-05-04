@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+
+<html lang="el" th:xmlns="http://www.thymeleaf.org" th:replace="normal/normalBase::layout(~{::section})">
+    <head>
+        <title th:text="${title}"></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <section>
+
+            <div class="container">
+
+                <div class="row justify-content-around ">
+
+                    <div class="col-md-8 align-item-center mt-5">
+
+                        <div class="card bg-color">
+
+                            <!--Show Message-->
+                            <div th:if="${session.msg1}" class="container">
+
+                                <div th:classappend="${session.msg1.type}" class="alert alert-dismissible fade show" role="alert">
+                                    <span th:text="${session.msg1.message}"></span>                      
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                <!--Remove msg from Session-->
+                                <th:block th:text="${@helper.removeSession()}"></th:block>
+
+                            </div>
+
+
+                            <div class="card-header text-center">
+                                <h1>Verify-Email</h1>
+                            </div>
+
+                            <div class="card-body">
+
+                                <form th:action="@{verify-otp}" method="post">
+
+                                    
+                                    <input type="hidden" name="userName" th:value="${email}"/>
+                                    <div class="form-group">
+
+                                        
+                                        <label>Enter 6-digit Otp there are send on your new email</label>
+
+                                        <div class="input-group mt-3">
+
+                                            <div class="input-group-prepend">
+
+                                                <div class="fs-4 input-group-text">
+
+                                                    <i class="fa-solid fa-lock"></i>
+                                                </div>
+
+                                            </div>
+
+                                            <input type="otp" name="otp" id="pass" class="form-control"
+                                                   placeholder="enter 6-digit otp here" autofocus>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Enter Your Password</label>
+                                        <div class="input-group mt-3">
+
+                                            <div class="input-group-prepend">
+
+                                                <div class="fs-4 input-group-text">
+
+                                                    <i class="fa-solid fa-lock"></i>
+                                                </div>
+
+                                            </div>
+
+                                            <input type="password" name="password" id="pass" class="form-control"
+                                                   placeholder="enter your password" autofocus
+                                                   >
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mt-4">
+
+                                        <button type="submit" class="btn btn-block btn-success">Change Email</button>
+                                        <button type="reset" class="btn btn-block btn-warning">Reset</button>
+
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <script>
+
+                    $(document).ready(() => {
+
+                        $(".dash-list").removeClass("sidebar-active");
+                        $("#setting").addClass("sidebar-active");
+                    });
+                </script>
+
+        </section>
+    </body>
+</html>

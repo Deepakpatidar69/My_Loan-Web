@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="normal/normalBase::layout(~{::section})">
+    <head>
+        <title th:value="${title}"></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <body>
+
+        <section>
+
+            <div class="mt-5">
+
+                <div class="row">
+
+                    <div class="col-md-11">
+                        <div class="container text-center">
+                            <p class="m-5 fs-3">You can get loan from any where by using 
+                                <span class="brand text-decoration-underline"> "EasyLoan" </span> 
+                                Web-Application. You can use this to rised the request of loan and
+                                also given to the detail about the loan. And also you can approve to 
+                                the loan of any other user.
+                            </p>
+
+                            
+                            <div class=" d-flex justify-content-around align-items-center dash-img">
+
+                                <div class="add-contact">
+                                    <h2 class="container text-center"> Loan Request </h2>
+
+                                    <img class="inImg" src="../../img/approves.jpg" alt="contact" />
+
+                                    <div class="container text-center">
+
+                                        <a class="btn btn-primary btn-block" th:href="@{/user/addcontact}">Add-Contact</a>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="your-contact">
+
+                                    <h2 class="container text-center"> Your Approved Loans </h2>
+
+                                    <img th:style="${'border-radius : 50%;'}" class="inImg" src="../../img/loanReq.png"
+                                         alt="contact" />
+
+                                    <div class="container text-center">
+
+                                        <h2 class="btn btn-secondary btn-block" th:text="${'10'}"></h2>
+
+                                    </div>
+
+
+                                </div>
+                                
+                                <div class="your-contact">
+
+                                    <h2 class="container text-center"> Your Can Approved </h2>
+
+                                    <img th:style="${'border-radius : 30%;'}" class="inImg" src="../../img/youapproves.jpg"
+                                         alt="contact" />
+
+                                    <div class="container text-center">
+
+                                        <h2 class="btn btn-secondary btn-block" th:text="${'10'}"></h2>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                
+                         $(document).ready(() => {
+
+                    $(".dash-list").removeClass("sidebar-active");
+                    $("#dash").addClass("sidebar-active");
+                });
+                
+            </script>
+            
+        </section>
+
+    </body>
+</html>

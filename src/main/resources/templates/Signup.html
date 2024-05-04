@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{homeBase::layout(~{::section})}">
+
+    <head>
+        <title>title</title>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                </head>
+                <body>
+
+                    <section class="m-all ">
+
+                        <div class="container">
+
+                            <div class="row justify-content-center align-item-center">
+                                <div class="col-md-6 bg-color p-5">
+
+                                    <div class="text-center mb-3">       
+                                        <h2>Sign-up Form</h2>
+                                    </div>
+
+
+
+                                    <div th:if="${session.msg}" class="container">
+
+                                        <div th:classappend="${session.msg.type}" class="alert alert-dismissible fade show" role="alert">
+
+                                            <span th:text="${session.msg.message}"></span>                      
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                        </div>
+
+                                        <!--Remove msg from Session-->
+                                        <th:block th:text="${@helper.removeSession()}"></th:block>
+
+                                    </div>
+
+
+                                    <form th:action="@{do_signup}" method="post" th:object="${user}" enctype="multipart/form-data">
+                                        <div class="row g-3">
+                                            <div class="col">
+                                                <input type="text" name="firstName" autofocus class="form-control" 
+                                                       placeholder="First name" th:value="${user.firstName}"
+                                                       aria-label="First name"
+                                                       th:classappend="${#fields.hasErrors('firstName') ? 'is-invalid' : ''}">
+
+                                                    <div th:each="e : ${#fields.errors('firstName')}" th:text="${e}"
+                                                         class="invalid-feedback">
+                                                    </div>
+                                            </div>
+
+
+                                            <!--last Name Field-->
+                                            <div class="col">
+                                                <input type="text" class="form-control" 
+                                                       name="lastName" th:value="${user.lastName}"
+                                                       placeholder="Last name" aria-label="Last name" 
+                                                       th:classappend="${#fields.hasErrors('lastName') ? 'is-invalid' : ''}">
+
+                                                    <div th:each="e : ${#fields.errors('lastName')}" th:text="${e}"
+                                                         class="invalid-feedback">
+                                                    </div>
+                                            </div>
+                                        </div>                     
+
+                                        <!--Mobile Number Field-->
+                                        <div class="form-group mt-2">
+                                            <label for="mobileNumber">Mobile Number:</label>
+                                            <input type="text" class="form-control" 
+                                                   name="mobileNumber" id="mobileNumber"
+                                                   placeholder="Enter mobile number"
+                                                   th:value="${user.mobileNumber}"
+                                                   th:classappend="${#fields.hasErrors('mobileNumber') ? 'is-invalid' : ''}">
+
+                                                <div th:each="e : ${#fields.errors('mobileNumber')}" th:text="${e}"
+                                                     class="invalid-feedback">
+                                                </div>
+                                        </div>
+
+                                        <!--Email address-->
+                                        <div class=" form-group col-auto mt-2">
+                                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">@</div>
+                                                </div>
+                                                <input type="email" id="email" name="userName" th:value="${user.userName}" 
+                                                       oninput="toggleButton()"  class="form-control" required
+                                                       th:classappend="${#fields.hasErrors('userName') ? 'is-invalid' : ''}">
+
+                                                    <div th:each="e : ${#fields.errors('firstName')}" th:text="${e}"
+                                                         class="invalid-feedback">
+                                                    </div>
+
+                                                    <div class="input-group-append">
+                                                        <button type="button" class="btn btn-primary signup-btn" id="signup-btns" onclick="sendOTP()">Send OTP</button>
+                                                    </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Otp Field-->
+
+                                        <div class="otp-group" id="otpGroup">
+                                            <div class="form-group">
+                                                <label for="otp">Enter OTP:</label>
+                                                <input type="number" id="otp" name="otp" class="form-control"
+                                                       placeholder="Enter Otp ">
+                                            </div>
+                                        </div>
+
+                                        <!--Password Field-->
+
+                                        <div class="form-group mt-2">
+                                            <label for="password">Password:</label>
+                                            <input type="password" class="form-control"
+                                                   name="password" id="password"
+                                                   placeholder="Enter password"
+                                                   th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}">
+
+
+                                                <div th:each="e : ${#fields.errors('password')}" th:text="${e}"
+                                                     class="invalid-feedback">
+                                                </div>
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            <label for="image">Image:</label>
+                                            <input type="file" name="img"
+                                                   class="form-control-file" id="image">
+                                        </div>
+
+                                        <div class="form-group mt-2">
+                                            <label>Select Gender:</label>
+                                            <div class="form-check ">
+                                                <Select class="mx-2" name="gender">
+                                                    <option th:text="${user.gender} ? ${user.gender} : 'Gender...'" selected>
+                                                    </option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </Select> 
+                                            </div>
+                                        </div>
+                                        <div class="container text-center mt-3">
+
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="reset" class="btn btn-warning">Reset</button>
+
+                                        </div>
+                                    </form>
+
+                                    <p class="mt-3">Already have an account? 
+                                        <a class="text-center text-decoration-none" 
+                                           th:href="@{signin}">Sign-In</a>
+                                    </p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </section>
+                </body>
+                </html>

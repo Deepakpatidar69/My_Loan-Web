@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/normalBase::layout(~{::section})">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Address</title>
+    </head>
+    <body>
+
+        <section>
+
+            <div class="container mt-5">
+                <div class="row justify-content-center mt-5">
+                    <div class="col-lg-8">
+                        <div class="address-form m-5">
+                            <h2 class="text-center mb-4">Address Form</h2>
+                            <form th:action="@{doAddress}" method="post">
+                                <!-- Street -->
+                                <div class="mb-3">
+                                    <label for="street" class="form-label">Street</label>
+                                    <input type="text" class="form-control" name="street"
+                                           id="street" autofocus placeholder="Enter street">
+                                </div>
+                                <!-- Landmark -->
+                                <div class="mb-3">
+                                    <label for="landmark" class="form-label">Landmark</label>
+                                    <input type="text" class="form-control"
+                                           name="landmark" id="landmark"
+                                           placeholder="Enter landmark">
+                                </div>
+                                <!-- Pincode -->
+                                <div class="mb-3">
+                                    <label for="pincode" class="form-label">Pincode</label>
+                                    <input type="text" class="form-control"
+                                           name="pincode" id="pincode" placeholder="Enter pincode">
+                                </div>
+                                <!-- Flat No / Makan No -->
+                                <div class="mb-3">
+                                    <label for="flat" class="form-label">Flat No / Makan No</label>
+                                    <input type="text" class="form-control" 
+                                           name="flatNo" id="flat" placeholder="Enter flat/makan number">
+                                </div>
+                                <!-- City / Village -->
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">City / Village</label>
+                                    <input type="text" class="form-control" id="city"
+                                           name="city" placeholder="Enter city/village">
+                                </div>
+                                <!-- State -->
+                                <div class="mb-3">
+                                    <label for="state" class="form-label">State</label>
+                                    <input type="text" class="form-control" 
+                                           name="state" id="state" placeholder="Enter state">
+                                </div>
+                                <!-- Submit Button -->
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="rest" class="btn btn-warning">Reset</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+        </section>
+
+    </body>
+</html>

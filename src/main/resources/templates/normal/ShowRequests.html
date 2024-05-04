@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="normal/normalBase::layout(~{::section})" 
+      th:fragment="los(data)">
+    <head>
+        <title>Show Requests</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <section>
+
+            <!-- Mid Nav-Bar -->
+            <div class="container-fluid bg-light mid-nav">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-8 mt-2">
+                            <ul class="nav justify-content-center">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="all-res" th:href="@{allRes}">All Requests</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="my-res" th:href="@{myRes}">My Requests</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a  class="nav-link" id="app-res" th:href="@{appRes}">Approved Requests</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <form class="d-flex justify-content-center">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${session.msg}" class="container">
+
+                <div th:classappend="${session.msg.type}" class="alert alert-dismissible fade show" role="alert">
+
+                    <span th:text="${session.msg.message}"></span>                      
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                </div>
+
+                <!--Remove msg from Session-->
+                <th:block th:text="${@helper.removeSession()}"></th:block>
+
+            </div>
+
+
+            <div th:replace="${data}"> </div>
+
+
+        </section>
+
+    </body>
+</html> 

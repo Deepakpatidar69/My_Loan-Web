@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/normalBase::layout(~{::section})">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Profile</title>
+    </head>
+    <body>
+
+        <section>
+            <div class="container mt-5">
+                <div class="row bg-color">
+                    <!-- Profile Picture -->
+                    <div class="col-md-4 mt-5">
+                        <div class="card mt-3">
+                            <div class="container text-center p_img">
+                                <img th:src="${'../../img/Dprofile.jpg'}" class="card-img-top" alt="Profile Picture">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Profile Picture</h5>
+
+                                <div class="mt-4 container text-center ">
+                                    <p> for update profile  <a th:href="updateProfile" class="btn btn-block btn-primary">Update Profile</a></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Profile Details -->
+                    <div class="col-md-8">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Profile Details</h5>
+                      
+                                <!--Show Message-->
+                                <div th:if="${session.msg1}" class="container">
+
+                                    <div th:classappend="${session.msg1.type}" class="alert alert-dismissible fade show" role="alert">
+                                        <span th:text="${session.msg1.message}"></span>                      
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <!--Remove msg from Session-->
+                                    <th:block th:text="${@helper.removeSession()}"></th:block>
+
+                                </div>
+
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Name : 
+                                        <span th:text="${user.firstName+' '+user.lastName}"></span>
+                                    </li>
+                                    <li class="list-group-item">Email : 
+                                        <span th:text='${user.userName}'></span>
+                                    </li>
+                                    <li class="list-group-item">Mobile Number: 
+                                        <span th:text='${user.mobileNumber}'></span>
+                                    </li>
+                                    <li class="list-group-item">Gender : 
+                                        <span th:text='${user.gender}'></span>
+                                    </li>
+                                    <!-- Add more profile details here -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Addresses -->
+                        <div class="mt-3">
+                            <h5>Addresses</h5>
+                            <div th:if="${session.msg}" class="container">
+
+                                <div th:classappend="${session.msg.type}" class="alert alert-dismissible fade show" role="alert">
+
+                                    <span th:text="${session.msg.message}"></span>                      
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                </div>
+
+                                <!--Remove msg from Session-->
+                                <th:block th:text="${@helper.removeSession()}"></th:block>
+
+                            </div>
+                            <div th:if="${address.size()>=1}" >
+
+                                <div th:each="address , s:${address}">                    
+                                    <div class="accordion" id="addressesAccordion">
+                                        <!-- Address Card 1 -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button th:text="${'Address '+(s.index+1)}" class="accordion-button" 
+                                                        type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse' + ${s.index+1}"
+                                                        aria-expanded="true" aria-controls="'collapse' + ${s.index+1}">
+
+                                                </button>
+                                            </h2>
+                                            <div th:id="'collapse' + ${s.index+1}" class="accordion-collapse collapse none" aria-labelledby="'addressHeading' + ${s.index+1}" data-bs-parent="#addressesAccordion">
+                                                <div class="accordion-body">
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item">Street: <span th:text="${address.street}"></span></li>
+                                                        <li class="list-group-item">City/Village: <span th:text="${address.city}"></span></li>
+                                                        <li class="list-group-item">Flat/Makan No.: <span th:text="${address.flatNo}"></span></li>
+                                                        <li class="list-group-item">LandMark : <span th:text="${address.landmark}"></span></li>
+                                                    </ul>
+                                                    <!-- Link to Address Input Page -->
+                                                    <div class="mt-3">
+                                                        <form th:action="@{updateaddress}" method="post">
+
+                                                            <input type="hidden" name="index" th:value="${s.index}">
+                                                            <div class="container text-center">
+                                                                <button type="submit" class="btn btn-primary">Update Address</button>
+                                                                <a th:href="@{'removeAddress/'+${s.index}}" class="btn btn-danger">Remove Address</a>
+                                                                <a th:href="@{address}" class="btn btn-success">Add new Address</a>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${address.size()<1}">
+                                <div class="card bg-white">
+                                    <div class="card-body text-center">
+                                        <p>You don't add any address</p>
+                                        <a class="btn btn-block btn-success" th:href="@{address}">Add Address</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+
+                $(document).ready(() => {
+
+                    $(".dash-list").removeClass("sidebar-active");
+                    $("#profile").addClass("sidebar-active");
+                });
+            </script>
+        </section>
+
+    </body>
+</html>

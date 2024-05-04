@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/ShowRequests::los(~{::section})">
+
+    <head>
+        <title>All-Request</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <section>
+
+            <div class="table-responsive">
+
+                <table class="table table-success table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Loan-Id</th>
+                            <th scope="col">Borrower</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Borrow Money</th>
+                            <th scope="col">Interest Rate</th>
+                            <th scope="col">Cibil Score</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    <div th:each="loan , s:${loans}">                    
+                        <tr>
+                            <th scope="row" th:text="${'LOAN20240'+(s.index+1)}"></th>
+                            <td th:text="${loan.getLoanUser.borrower}"></td>
+                            <td>
+                                <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" 
+                                   th:href="@{'specific/'+${loan.getLoanUser.id}+'/my-res'}"
+                                   th:text="${loan.getLoanUser.email}"> 
+                                </a>
+                            </td>
+                            <td th:text="${loan.getLoanUser.borrowMoney}"></td>
+                            <td th:text="${loan.getLoanUser.interestRate}"></td>
+                            <td th:text="${loan.getLoanUser.cibilScore}"></td>
+                            <td th:text="${loan.getLoanUser.duration}"></td>
+                            <td> 
+
+
+                                <div th:if="${loan.getLoanUser.loanApproval == 'Yes'}">
+
+                                    <form th:action="@{approveUser}" method="get">
+
+                                        <input type="hidden" name="id" th:value="${loan.getLoanUser.id+5}"/>
+                                        <button type="submit" class="btn btn-block btn-primary">Approved</button>
+
+                                    </form>
+
+                                </div>
+
+                                <div th:unless="${loan.getLoanUser.loanApproval == 'Yes'}">
+
+                                    <form th:action="@{deleteRes}" method="post">
+
+                                        <input type="hidden" name="id" th:value="${s.index}"/>
+                                        <button type="submit" class="btn btn-block btn-danger">Delete</button>
+
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+
+            <script>
+
+                $(".nav-link").removeClass("active");
+                $("#my-res").addClass("active");
+                $(".dash-list").removeClass("sidebar-active");
+                $("#show").addClass("sidebar-active");
+            </script>
+
+        </section>
+
+    </body>
+</html>

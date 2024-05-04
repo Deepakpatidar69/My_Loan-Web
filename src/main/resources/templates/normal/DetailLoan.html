@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html en='lang' th:xmlns="http://www.thymeleaf.org" th:replace="normal/showRequests::los(~{::section})">
+    <head>
+        <title th:text='${title}'></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <section>
+
+            <div class="container">
+
+                <div class="row justify-content-around">
+                    <div class="col-lg-8">
+
+                        <div class="crad">
+
+                            <div class="text-center">
+                                <h1>Loan Detail</h1>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class=" container text-center">
+
+                                    <div class="table-responsive">
+
+                                        <table class="table table-primary table-striped">
+
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col"> # ID </th>
+                                                    <th scope="col"> 12345 </th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row"> Borrower Name </th>
+                                                    <td th:text="${loan.borrower}"></td>    
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row"> Borrow Money </th>
+                                                    <td th:text="${loan.borrowMoney}"></td>    
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row"> Interest Rate </th>
+                                                    <td th:text="${loan.interestRate}+'%'"></td>    
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row"> Duration </th>
+                                                    <td th:text="${loan.duration}+' Month'"></td>    
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row"> Approved Date </th>
+                                                    <td th:text="${loan.date}"></td>    
+                                                </tr>
+
+                                                <tr class="table-danger">
+                                                    <th scope="row"> Due Date </th>
+                                                    <td th:text="${dueDate}"></td>    
+                                                </tr>
+
+                                                <tr>
+                                                    <th scope="row">Cibil Score</th>
+                                                    <td th:text="${loan.cibilScore}"></td>
+                                                </tr>
+
+                                                <tr class="table-secondary">
+                                                    <th scope="row"> Return Amount </th>
+                                                    <td th:text="${loan.borrowMoney+(loan.borrowMoney*loan.interestRate*loan.duration)/100}"></td>    
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+
+                                        <input type="hidden" id="type" th:value="${type}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <script>
+
+
+                $(".nav-link").removeClass("active");
+                $('#' + document.getElementById("type").value).addClass("active");
+                $(".dash-list").removeClass("sidebar-active");
+                $("#show").addClass("sidebar-active");
+
+            </script>
+
+        </section>
+
+    </body>
+</html>

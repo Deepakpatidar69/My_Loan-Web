@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="homeBase::layout(~{::section})">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Change Password</title>
+
+    </head>
+    <body>
+        <section>
+            <div class="container">
+
+                <div class="row justify-content-around">
+
+                    <div class="col-md-10 mt-5">
+                        <div class="card mt-5 bg-color">
+                            <div class="card-header text-center">
+                                <h1>Change Password</h1>
+                            </div>
+                            <div class="card-body">
+                              
+                                <div th:if="${msg}" class="container">
+
+                                    <div th:classappend="${msg.type}" class="alert alert-dismissible fade show" role="alert">
+                                        <span th:text="${msg.message}"></span>                      
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                    </div>
+                                </div>
+                                
+                                    <form th:action="@{change}" method="post">
+
+                                        <div class="form-group">
+
+                                            <label>Enter new password</label>
+                                            <div class="input-group">
+                                                <input type="password" name="newpass" class="form-control"
+                                                       placeholder="Enter new password" required autofocus/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mt-3">
+
+                                            <label>Re-enter new password</label>
+                                            <div class="input-group">
+                                                <input type="password" name="repass" class="form-control"
+                                                       placeholder="Re-enter new password" required autofocus/>
+                                            </div>
+                                        </div>
+
+                                        <div class="container text-center mt-4">
+                                            <button type="submit" class="btn btn-block btn-success">Change</button>
+                                            <button type="reset" class="btn btn-block btn-warning">Reset</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+        </section>
+    </body>
+</html>

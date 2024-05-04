@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="homeBase::layout(~{::section})">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Forgot Page</title>
+
+
+    </head>
+    <body>
+
+        <section>
+
+            <div class="container">
+                <div class="row justify-content-around">
+                    <div class="col-md-8 mt-5">
+                        <div class="card mt-5 bg-color">
+
+                            <div class="card-header">
+                                <h1 class="text-center">
+                                    Forgot Password
+                                </h1>
+                            </div>
+                            <div class="card-body">
+
+                                <div th:if="${msg}" class="container">
+
+                                    <div th:classappend="${msg.type}" class="alert alert-dismissible fade show" role="alert">
+                                        <span th:text="${msg.message}"></span>                      
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                    </div>
+
+                                </div>
+
+
+                                <form th:action="@{verify_otp}" method="post">
+                                    <!--Email address-->
+                                    <div class=" form-group col-auto mt-2">
+                                        <label class="sr-only" for="inlineFormInputGroup">Enter Otp Here</label>
+                                        <div class="input-group mb-2">
+
+                                            <input type="otp" id="otp" name="otp" 
+                                                   class="form-control" 
+                                                   placeholder="Enter 6-digit otp here" 
+                                                   autofocus required/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="container text-center mt-3">
+
+                                        <button type="submit" class="btn btn-block btn-primary">Verify</button>
+                                        <button type="reset" class="btn btn-block btn-warning"> Reset</button>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

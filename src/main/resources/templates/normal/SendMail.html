@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html en="lang" th:xmlns="http://www.thymeleaf.org" th:replace="normal/normalBase::layout(~{::section})" >
+    <head>
+        <title th:text="${title}"></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <section>
+
+
+            <div class="container">
+
+                <div class="row justify-content-around">
+
+                    <div class="col-md-8 mt-5"> 
+
+                        <div class="card bg-color">
+
+                            <div class="text-center">
+                                <h1>Send-Mail</h1>
+                            </div>
+
+                            <div th:if="${session.msg}" class="container">
+
+                                <div th:classappend="${session.msg.type}" class="alert alert-dismissible fade show" role="alert">
+
+                                    <span th:text="${session.msg.message}"></span>                      
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                                </div>
+
+                                <!--Remove msg from Session-->
+                                <th:block th:text="${@helper.removeSession()}"></th:block>
+
+                            </div>
+
+
+                            <div class="card-body">
+                                <div class="form">
+                                    <form th:action="@{mailcontent}" method="post" >
+
+                                        <input type="hidden" name="email" th:value="${email}"/>
+
+                                        <div class="form-group mt-2">
+                                            <label>title</label>
+                                            <input class="form-control" type="text" name="title" placeholder="Enter Title"/>
+                                        </div>
+
+                                        <div class="form-group mt-2">
+                                            <label>Content</label>
+                                            <textarea class="form-control" name="content" rows="5" cols="10" placeholder="Enter Content"></textarea>
+                                        </div>
+
+                                        <div class="form-group mt-2">
+                                            <label>Transaction Detail</label>
+                                            <input type="file" class="form-control" name="content"></textarea>
+                                        </div>
+
+
+                                        <div class="container text-center mt-4">
+                                            <button type="submit" class="btn btn-block btn-primary">Send Message</button>
+                                            <button type="reset" class="btn btn-block btn-warning">Reset</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <script>
+                $(".dash-list").removeClass("sidebar-active");
+                $("#show").addClass("sidebar-active");
+            </script>
+
+        </section>
+    </body>
+</html>
