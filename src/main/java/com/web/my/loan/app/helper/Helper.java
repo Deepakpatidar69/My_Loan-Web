@@ -1,6 +1,9 @@
 package com.web.my.loan.app.helper;
 
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Random;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -39,6 +42,18 @@ public class Helper {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public static String dateConvert(String date , int duration){
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+         String Cdate = null;
+	        try {
+	            Cdate = LocalDate.parse(date, formatter).plusMonths(duration).format(formatter);
+	        } catch (DateTimeParseException e) {
+                }
+                
+                return Cdate;
     }
     
 }

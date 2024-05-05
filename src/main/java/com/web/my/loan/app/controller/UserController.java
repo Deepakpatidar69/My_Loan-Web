@@ -5,6 +5,7 @@ import com.web.my.loan.app.entity.ApprovedLoan;
 import com.web.my.loan.app.entity.BorrowedLoan;
 import com.web.my.loan.app.entity.Loan;
 import com.web.my.loan.app.entity.User;
+import com.web.my.loan.app.helper.Helper;
 import com.web.my.loan.app.helper.Message;
 import com.web.my.loan.app.services.LoanServices;
 import com.web.my.loan.app.services.MailServices;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,8 +34,7 @@ public class UserController {
     private UserServices userService;
     private LoanServices loanService;
     private MailServices mailServices;
-    private DateTimeFormatter formatter;
-    private ApiController apiController;
+
 
     private Message message = null;
     private List<ApprovedLoan> Aloan = null;
@@ -44,16 +45,12 @@ public class UserController {
     private Address address = null;
     private List<BorrowedLoan> Bloan = null;
 
-    public UserController(UserServices userService, LoanServices loanService, MailServices mailServices, DateTimeFormatter formatter, ApiController apiController) {
+    public UserController(UserServices userService, LoanServices loanService, MailServices mailServices) {
         this.userService = userService;
         this.loanService = loanService;
         this.mailServices = mailServices;
-        this.formatter = formatter;
-        this.apiController = apiController;
     }
-    
-    
-    
+
     @GetMapping("/dash")
     @PreAuthorize("hasRole('USER')")
     public String goDash() {
@@ -189,7 +186,7 @@ public class UserController {
     @GetMapping("/allRes")
     public String allRes(Model model) {
         model.addAttribute("title", "All-Request");
-        this.loans = this.apiController.getData().getBody();
+        this.loans = this.loanService.getloan();
         model.addAttribute("loans", loans);
 
         return "normal/Allres";
@@ -282,10 +279,8 @@ public class UserController {
             Model model,
             HttpSession session) {
 
-        String date = LocalDate.now().plusMonths(this.loan.getDuration()).format(formatter);
-
         model.addAttribute("loan", this.loan);
-        model.addAttribute("dueDate", date);
+        model.addAttribute("dueDate", Helper.dateConvert(this.loan.getDate(), this.loan.getDuration()));
         model.addAttribute("type", session.getAttribute("type"));
         return "normal/DetailLoan";
     }
@@ -317,11 +312,9 @@ public class UserController {
         this.loan = this.loanService.getLoanById(id - 5);
         user = this.loanService.getdetailofUser(loan);
 
-        String date = LocalDate.now().plusMonths(loan.getDuration()).format(formatter);
-
         model.addAttribute("user", user);
         model.addAttribute("loan", this.loan);
-        model.addAttribute("dueDate", date);
+        model.addAttribute("dueDate", Helper.dateConvert(this.loan.getDate(), this.loan.getDuration()));
         return "normal/approvalDetail";
     }
 
@@ -380,12 +373,10 @@ public class UserController {
             Principal principal,
             HttpSession session) {
 
-        
+        this.user = userService.getUser(principal.getName());
+        this.message = this.userService.changePassword(currentPass, newPass, user);
+        session.setAttribute("msg", message);
 
-            this.user = userService.getUser(principal.getName());
-            this.message = this.userService.changePassword(currentPass, newPass, user);
-            session.setAttribute("msg", message);
-        
         return "redirect:/user/goSetting";
     }
 
@@ -399,7 +390,7 @@ public class UserController {
             Principal principal,
             HttpSession session) {
 
-        this.message = this.userService.VerifyEmail(currentEmail, newEmail, principal.getName() ,"email");
+        this.message = this.userService.VerifyEmail(currentEmail, newEmail, principal.getName(), "email");
         model.addAttribute("email", newEmail);
         session.setAttribute("msg1", message);
 

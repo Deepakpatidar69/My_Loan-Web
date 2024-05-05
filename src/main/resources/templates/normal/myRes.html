@@ -30,7 +30,7 @@
 
                     <div th:each="loan , s:${loans}">                    
                         <tr>
-                            <th scope="row" th:text="${'LOAN20240'+(s.index+1)}"></th>
+                            <th scope="row" th:text="${'LOAN20240'+loan.getLoanUser.id}"></th>
                             <td th:text="${loan.getLoanUser.borrower}"></td>
                             <td>
                                 <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" 

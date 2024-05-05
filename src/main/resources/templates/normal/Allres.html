@@ -31,7 +31,7 @@
                     <div th:each="loan , s:${loans}">   
                         <div th:if="${loan.loanApproval == 'No'}"
                              <tr>
-                                <th scope="row" th:text="${'LOAN20240'+(s.index+1)}"></th>
+                                <th scope="row" th:text="${'LOAN20240'+loan.id}"></th>
                                 <td th:text="${loan.borrower}"></td>
                                 <td>
                                     <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" 
