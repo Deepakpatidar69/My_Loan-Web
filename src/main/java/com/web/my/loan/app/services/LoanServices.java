@@ -38,6 +38,7 @@ public class LoanServices {
 
             loanData.setLoanApproval("No");
             loanData.setDate(LocalDate.now().format(formatter));
+            loanData.setReturnDate(LocalDate.now().plusMonths(loanData.getDuration()).format(formatter));
             // Setting Data in the BorrowedLoan And Save
             BorrowedLoan borrowedLoan = new BorrowedLoan();
             borrowedLoan.setEndUser(user);
@@ -57,7 +58,9 @@ public class LoanServices {
     }
 
     public String updateLoan(Loan loan) {
+
         this.loanRepo.save(loan);
+        
 
         return "loan Approved Successfully";
     }

@@ -33,6 +33,8 @@ public class Loan {
     private float cibilScore;
     private String date;
     private double returnAmount;
-
+    private String approvedDate;
+    private String returnDate;
+    
     
 }

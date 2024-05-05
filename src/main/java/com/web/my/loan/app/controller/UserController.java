@@ -12,11 +12,7 @@ import com.web.my.loan.app.services.MailServices;
 import com.web.my.loan.app.services.UserServices;
 import jakarta.servlet.http.HttpSession;
 import java.security.Principal;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -280,11 +276,11 @@ public class UserController {
             HttpSession session) {
 
         model.addAttribute("loan", this.loan);
-        model.addAttribute("dueDate", Helper.dateConvert(this.loan.getDate(), this.loan.getDuration()));
         model.addAttribute("type", session.getAttribute("type"));
         return "normal/DetailLoan";
     }
 
+        
     // Checking The Page 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/specific/{id}/{app}")
@@ -299,12 +295,29 @@ public class UserController {
         // Remove Already select Value
         session.removeAttribute("type");
         session.setAttribute("type", type);
+        if(this.loan.getLoanApproval().equals("Yes")){
+            
+        return "redirect:/user/approvedRes";
+        }
         return "redirect:/user/goSpecific";
     }
 
-    // Specific Approved Detail
+        // Go Specific Page
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/approveUser")
+    @GetMapping("/approvedRes")
+    public String approvedDetail(
+            Model model,
+            HttpSession session) {
+
+        model.addAttribute("loan", this.loan);
+        model.addAttribute("type", session.getAttribute("type"));
+        return "normal/afterApproveDetail";
+    }
+
+    
+    // Specific Approval Detail
+    @PreAuthorize("hasRole('USER')")
+        @GetMapping("/approveUser")
     public String approveDetail(
             Model model,
             @RequestParam("id") int id) {
@@ -314,7 +327,6 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("loan", this.loan);
-        model.addAttribute("dueDate", Helper.dateConvert(this.loan.getDate(), this.loan.getDuration()));
         return "normal/approvalDetail";
     }
 

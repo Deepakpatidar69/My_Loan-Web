@@ -159,7 +159,7 @@ public class UserServices {
         return new Message(message, type);
     }
 
-    // Updatev Profile Data 
+    // Update Profile Data 
     public Message updateProfile(User updateuser, User oldUser) {
 
         oldUser.setFirstName(updateuser.getFirstName());
@@ -204,7 +204,8 @@ public class UserServices {
             loan.setLoanApproval("Yes");
 
             // Set Approved Date
-            loan.setDate(LocalDate.now().format(formatter));
+            loan.setApprovedDate(LocalDate.now().format(formatter));
+            loan.setReturnDate(LocalDate.now().plusMonths(loan.getDuration()).format(formatter));
             BorrowedLoan bloan = this.loanService.getBloanByLoan(loan, user);
 
             if (bloan == null) {

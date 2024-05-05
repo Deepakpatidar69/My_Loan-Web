@@ -44,16 +44,4 @@ public class Helper {
         }
     }
     
-    public static String dateConvert(String date , int duration){
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-         String Cdate = null;
-	        try {
-	            Cdate = LocalDate.parse(date, formatter).plusMonths(duration).format(formatter);
-	        } catch (DateTimeParseException e) {
-                }
-                
-                return Cdate;
-    }
-    
 }
