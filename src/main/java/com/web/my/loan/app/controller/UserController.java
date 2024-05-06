@@ -275,8 +275,10 @@ public class UserController {
             Model model,
             HttpSession session) {
 
+        this.loan =(Loan) session.getAttribute("loan");
         model.addAttribute("loan", this.loan);
         model.addAttribute("type", session.getAttribute("type"));
+        session.removeAttribute("loan");
         return "normal/DetailLoan";
     }
 
@@ -295,6 +297,7 @@ public class UserController {
         // Remove Already select Value
         session.removeAttribute("type");
         session.setAttribute("type", type);
+        session.setAttribute("loan", this.loan);
         if(this.loan.getLoanApproval().equals("Yes")){
             
         return "redirect:/user/approvedRes";
