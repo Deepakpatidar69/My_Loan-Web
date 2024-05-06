@@ -62,7 +62,7 @@ public class HomeController {
     @GetMapping("/signin")
     public String goSignin(Model model) {
         model.addAttribute("title", "Sign-In");
-        return "templates.Signin";
+        return "Signin";
     }
 
     @GetMapping("/home")
