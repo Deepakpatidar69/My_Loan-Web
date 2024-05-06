@@ -56,13 +56,13 @@ public class HomeController {
         if (message.getType().equals("alert-danger")) {
             return "Signup";
         }
-        return "signin";
+        return "redirect:/loan/signin";
     }
 
     @GetMapping("/signin")
     public String goSignin(Model model) {
         model.addAttribute("title", "Sign-In");
-        return "Signin";
+        return "templates.Signin";
     }
 
     @GetMapping("/home")
